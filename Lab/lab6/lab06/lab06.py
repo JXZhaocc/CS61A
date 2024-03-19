@@ -165,7 +165,7 @@ def make_change(amount, coins):
     The coins argument is a dictionary with keys that are positive integer
     denominations and values that are positive integer coin counts.
 
-    >>> make_change(2, {2: 1})
+    >>> make_change(2, {2: 1}) 
     [2]
     >>> make_change(2, {1: 2, 2: 1})
     [1, 1]
@@ -192,6 +192,30 @@ def make_change(amount, coins):
     if amount < smallest:
         return None
     "*** YOUR CODE HERE ***"
+    change = []
+    #change.append(smallest)
+    value = amount - smallest
+    while value >= 0:
+        if value> 0 and rest == {}:
+            return None
+        else:
+            if value > 0 and value < smallest:
+                value = value + smallest
+                if smallest in rest:
+                    rest.pop(smallest)
+                smallest = min(rest)
+                value = value - smallest
+                
+            elif value > 0:
+                change.append(smallest)
+                smallest = min(rest)
+                rest = remove_one(rest, smallest)
+                value  = value - smallest
+                
+            elif value == 0:
+                    change.append(smallest)
+                    return change
+
 
 def remove_one(coins, coin):
     """Remove one coin from a dictionary of coins. Return a new dictionary,
